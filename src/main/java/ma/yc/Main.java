@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import ma.yc.entity.Employee;
 
+import java.util.UUID;
+
 public class Main {
     public static void main ( String[] args ) {
 
@@ -22,9 +24,8 @@ public class Main {
             employee.setEmail("email@mail.com");
             employee.setPosition("modir");
             employee.setDepartment("agora");
-            employee.setName("ss");
-            em.persist(employee);
-            System.out.println(employee);
+
+            em.merge(employee);
             em.getTransaction().commit();
         } finally {
             em.close();

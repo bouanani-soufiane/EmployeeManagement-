@@ -1,0 +1,16 @@
+<hibernate-mapping xmlns="urn:hibernate-mapping"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="urn:hibernate-mapping
+                   https://www.hibernate.org/xsd/hibernate-mapping-6.0.xsd">
+
+    <class name="ma.yc.entity.Employee" table="employees">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="email" column="email"/>
+        <property name="phone" column="phone"/>
+        <property name="department" column="department"/>
+        <property name="position" column="position"/>
+    </class>
+</hibernate-mapping>

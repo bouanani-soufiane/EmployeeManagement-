@@ -5,97 +5,67 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.UUID;
+import java.lang.Long;
 
-@Entity
-@Table(name = "employees")
 public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
 
-    @NotBlank(message = "the name is required")
-    @Size(min = 3 , max = 100 , message = "name should be between 2 and 100 char")
+    private Long id;
+
     private String name;
 
-    @NotBlank(message = "the email is required")
-    @Email(message = "email should be valid")
     private String email;
 
-    @NotBlank(message = "the phone is required")
-    @Size(min = 10 , max = 15 , message = "the phone number need to be between 10 and 15 char")
     private String phone;
 
-    @NotBlank(message = "Department is required")
     private String department;
 
-    @NotBlank(message = "Position is required")
     private String position;
 
-
-    public UUID id () {
+    public Long getId () {
         return id;
     }
 
-    public Employee setId ( UUID id ) {
+    public void setId ( Long id ) {
         this.id = id;
-        return this;
     }
 
-    public @NotBlank(message = "the name is required") @Size(min = 3, max = 100, message = "name should be between 2 and 100 char") String name () {
+    public String getName () {
         return name;
     }
 
-    public Employee setName ( @NotBlank(message = "the name is required") @Size(min = 3, max = 100, message = "name should be between 2 and 100 char") String name ) {
+    public void setName ( String name ) {
         this.name = name;
-        return this;
     }
 
-    public @NotBlank(message = "the email is required") @Email(message = "email should be valid") String email () {
+    public String getEmail () {
         return email;
     }
 
-    public Employee setEmail ( @NotBlank(message = "the email is required") @Email(message = "email should be valid") String email ) {
+    public void setEmail ( String email ) {
         this.email = email;
-        return this;
     }
 
-    public @NotBlank(message = "the phone is required") @Size(min = 10, max = 15, message = "the phone number need to be between 10 and 15 char") String phone () {
+    public String getPhone () {
         return phone;
     }
 
-    public Employee setPhone ( @NotBlank(message = "the phone is required") @Size(min = 10, max = 15, message = "the phone number need to be between 10 and 15 char") String phone ) {
+    public void setPhone ( String phone ) {
         this.phone = phone;
-        return this;
     }
 
-    public @NotBlank(message = "Department is required") String department () {
+    public String getDepartment () {
         return department;
     }
 
-    public Employee setDepartment ( @NotBlank(message = "Department is required") String department ) {
+    public void setDepartment ( String department ) {
         this.department = department;
-        return this;
     }
 
-    public @NotBlank(message = "Position is required") String position () {
+    public String getPosition () {
         return position;
     }
 
-    public Employee setPosition ( @NotBlank(message = "Position is required") String position ) {
+    public void setPosition ( String position ) {
         this.position = position;
-        return this;
-    }
-
-    @Override
-    public String toString () {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", department='" + department + '\'' +
-                ", position='" + position + '\'' +
-                '}';
     }
 }
