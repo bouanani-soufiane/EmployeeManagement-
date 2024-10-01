@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @NotBlank(message = "the name is required")
     @Size(min = 3 , max = 100 , message = "name should be between 2 and 100 char")
@@ -31,11 +33,11 @@ public class Employee {
     private String position;
 
 
-    public Long id () {
+    public UUID id () {
         return id;
     }
 
-    public Employee setId ( Long id ) {
+    public Employee setId ( UUID id ) {
         this.id = id;
         return this;
     }
@@ -83,5 +85,17 @@ public class Employee {
     public Employee setPosition ( @NotBlank(message = "Position is required") String position ) {
         this.position = position;
         return this;
+    }
+
+    @Override
+    public String toString () {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", department='" + department + '\'' +
+                ", position='" + position + '\'' +
+                '}';
     }
 }

@@ -16,7 +16,7 @@ import java.util.Properties;
 public class CustomPresistenceUnitInfo implements PersistenceUnitInfo {
     @Override
     public String getPersistenceUnitName () {
-        return "Em-presistence-unit";
+        return DotenvReader.get("PERSISTENCE_UNIT_NAME");
     }
 
     @Override
@@ -83,16 +83,9 @@ public class CustomPresistenceUnitInfo implements PersistenceUnitInfo {
     @Override
     public Properties getProperties() {
         Properties properties = new Properties();
-//        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-//        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.validator.message_interpolator", "org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator");
-
-//        properties.setProperty("hibernate.connection.driver_class", DotenvReader.get("DB_DRIVER"));
-//        properties.setProperty("hibernate.connection.url", DotenvReader.get("DB_URL"));
-//        properties.setProperty("hibernate.connection.username", DotenvReader.get("DB_USERNAME"));
-//        properties.setProperty("hibernate.connection.password", DotenvReader.get("DB_PASSWORD"));
-
         return properties;
     }
 
