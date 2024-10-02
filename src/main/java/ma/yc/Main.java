@@ -1,22 +1,28 @@
 package ma.yc;
 
 import ma.yc.entity.Employee;
-import ma.yc.repository.EmployeeRepository;
-import ma.yc.repository.EmployeeRepositoryImpl;
+import ma.yc.service.EmployeeService;
+import ma.yc.service.EmployeeServiceImpl;
 
 import java.util.List;
 
 public class Main {
-    public static void main ( String[] args ) {
-        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+    public static void main(String[] args) {
+        EmployeeService employeeService = new EmployeeServiceImpl();
 
+        // Create a new employee
+        Employee newEmployee = new Employee();
+        newEmployee.setName("John Doe");
+        newEmployee.setEmail("john.doe@example.com");
+        newEmployee.setPhone("1234567890");
+        newEmployee.setDepartment("Sales");
+        newEmployee.setPosition("Sales Associate");
 
-        System.out.println("one : ");
+        // Call the create method
+        employeeService.create(newEmployee);
 
-        List<Employee> em1 = employeeRepository.findAll();
-
-        System.out.println("two : ");
-        System.out.println("here : " + em1);
-
+        // Fetch all employees
+        List<Employee> employees = employeeService.findAll();
+        System.out.println("Employees: " + employees);
     }
 }
