@@ -1,10 +1,5 @@
 package ma.yc.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import java.lang.Long;
 
 public class Employee {
@@ -67,5 +62,17 @@ public class Employee {
 
     public void setPosition ( String position ) {
         this.position = position;
+    }
+
+    @Override
+    public String toString () {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", department='" + department + '\'' +
+                ", position='" + position + '\'' +
+                '}';
     }
 }

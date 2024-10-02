@@ -1,34 +1,22 @@
 package ma.yc;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import ma.yc.entity.Employee;
+import ma.yc.repository.EmployeeRepository;
+import ma.yc.repository.EmployeeRepositoryImpl;
 
-import java.util.UUID;
+import java.util.List;
 
 public class Main {
     public static void main ( String[] args ) {
-
-//        EntityManagerFactory emf = new HibernatePersistenceProvider().createContainerEntityManagerFactory(new CustomPresistenceUnitInfo(), new HashMap<>());
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
 
 
-        try {
-            em.getTransaction().begin();
-            Employee employee = new Employee();
-            employee.setName("soufiane");
-            employee.setPhone("0630067322");
-            employee.setEmail("email@mail.com");
-            employee.setPosition("modir");
-            employee.setDepartment("agora");
+        System.out.println("one : ");
 
-            em.merge(employee);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
+        List<Employee> em1 = employeeRepository.findAll();
+
+        System.out.println("two : ");
+        System.out.println("here : " + em1);
+
     }
 }
