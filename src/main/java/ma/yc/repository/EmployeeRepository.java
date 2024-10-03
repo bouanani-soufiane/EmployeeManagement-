@@ -16,4 +16,6 @@ public interface EmployeeRepository {
 
     List<Employee> findAll ();
 
+    List<Employee> search ( String value );
+
 }

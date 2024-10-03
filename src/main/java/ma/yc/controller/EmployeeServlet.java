@@ -19,6 +19,7 @@ public class EmployeeServlet extends HttpServlet {
     private static final String ACTION_CREATE = "/create";
     private static final String ACTION_EDIT = "/edit";
     private static final String ACTION_UPDATE = "/update";
+    private static final String ACTION_DELETE = "/delete";
     private static final String ACTION_HOME = "/";
 
     private EmployeeService service;
@@ -61,11 +62,28 @@ public class EmployeeServlet extends HttpServlet {
                 storeEmployee(req, res);
                 break;
             case ACTION_UPDATE:
-                updateEmployee(req,res);
+                updateEmployee(req, res);
+            case ACTION_DELETE:
+                doDelete(req, res);
+                break;
             default:
                 writeResponse(res, HttpServletResponse.SC_BAD_REQUEST, "Invalid action: " + action);
                 break;
         }
+    }
+
+    @Override
+    protected void doDelete ( HttpServletRequest req, HttpServletResponse resp ) throws IOException {
+
+            final int id = Integer.parseInt(req.getParameter("id"));
+
+            boolean deleted = service.delete(id);
+
+            if (deleted) {
+                resp.sendRedirect("/");
+            } else {
+                writeResponse(resp, HttpServletResponse.SC_NOT_FOUND, "Employee not found");
+            }
     }
 
     private void updateEmployee ( HttpServletRequest req, HttpServletResponse res ) {
@@ -78,7 +96,7 @@ public class EmployeeServlet extends HttpServlet {
             employee.setPosition(req.getParameter("position"));
             service.update(employee);
             writeResponse(res, HttpServletResponse.SC_OK, "Employee updated successfully");
-        }catch (Exception e) {
+        } catch (Exception e) {
             writeResponse(res, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
             e.printStackTrace();
         }

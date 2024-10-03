@@ -15,4 +15,6 @@ public interface EmployeeService {
 
     List<Employee> findAll ();
 
+    List<Employee> search ( String value );
+
 }

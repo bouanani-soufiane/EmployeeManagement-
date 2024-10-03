@@ -4,6 +4,7 @@ import ma.yc.entity.Employee;
 import ma.yc.util.SessionFactoryProvider;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -79,5 +80,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    public List<Employee> search(String value) {
+        String hql = "FROM Employee e WHERE e.name LIKE :searchTerm OR e.email LIKE :searchTerm " +
+                "OR e.department LIKE :searchTerm OR e.position LIKE :searchTerm";
+        Query<Employee> query = session.createQuery(hql, Employee.class);
+        query.setParameter("searchTerm", "%" + value + "%");
+
+        return query.getResultList();
     }
 }

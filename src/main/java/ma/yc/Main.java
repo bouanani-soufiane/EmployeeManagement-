@@ -10,19 +10,10 @@ public class Main {
     public static void main(String[] args) {
         EmployeeService employeeService = new EmployeeServiceImpl();
 
-        // Create a new employee
-        Employee newEmployee = new Employee();
-        newEmployee.setName("John Doe");
-        newEmployee.setEmail("john.doe@example.com");
-        newEmployee.setPhone("1234567890");
-        newEmployee.setDepartment("Sales");
-        newEmployee.setPosition("Sales Associate");
+        List<Employee> employees = employeeService.search("ss");
 
-        // Call the create method
-        employeeService.create(newEmployee);
-
-        // Fetch all employees
-        List<Employee> employees = employeeService.findAll();
-        System.out.println("Employees: " + employees);
+        for (Employee employee : employees) {
+            System.out.println(employee);
+        }
     }
 }

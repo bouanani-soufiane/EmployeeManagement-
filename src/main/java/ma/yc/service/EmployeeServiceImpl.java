@@ -38,4 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
+
+    public List<Employee> search(String value) {
+        return employeeRepository.search(value);
+    }
 }
