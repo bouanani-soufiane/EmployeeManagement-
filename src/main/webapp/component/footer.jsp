@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fala7on
-  Date: 9/30/24
-  Time: 2:15 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Employee Management System. All rights reserved.</p>
+        <p>Follow us on
+            <a href="#">Twitter</a>,
+            <a href="#">Facebook</a>,
+            <a href="#">LinkedIn</a>
+        </p>
+    </div>
+</footer>

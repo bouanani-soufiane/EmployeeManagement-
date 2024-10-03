@@ -3,15 +3,37 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-
+    <display-name>Employee Management</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
     <servlet>
         <servlet-name>Em</servlet-name>
-
+        <servlet-class>ma.yc.controller.EmployeeServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Em</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Em</servlet-name>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Em</servlet-name>
+        <url-pattern>/store</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Em</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Em</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

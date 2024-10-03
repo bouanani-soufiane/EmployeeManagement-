@@ -8,13 +8,13 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
-
+    Session session = SessionFactoryProvider.createSession();
     @Override
     public boolean create(Employee employee) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryProvider.createSession()) {
+        try  {
             transaction = session.beginTransaction();
-            session.save(employee);
+            session.persist(employee);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -27,7 +27,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee findById(int id) {
-        try (Session session = SessionFactoryProvider.createSession()) {
+        try  {
             return session.get(Employee.class, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,9 +38,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public boolean update(Employee employee) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryProvider.createSession()) {
+        try  {
             transaction = session.beginTransaction();
-            session.update(employee);
+            session.merge(employee);
             transaction.commit();
             return true;
         } catch (Exception e) {
@@ -54,11 +54,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public boolean delete(int id) {
         Transaction transaction = null;
-        try (Session session = SessionFactoryProvider.createSession()) {
+        try  {
             transaction = session.beginTransaction();
             Employee employee = session.get(Employee.class, id);
             if (employee != null) {
-                session.delete(employee);
+                session.remove(employee);
                 transaction.commit();
                 return true;
             }
@@ -73,7 +73,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public List<Employee> findAll() {
-        try (Session session = SessionFactoryProvider.createSession()) {
+        try  {
             return session.createQuery("from Employee", Employee.class).list();
         } catch (Exception e) {
             e.printStackTrace();

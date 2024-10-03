@@ -16,6 +16,17 @@ public class Employee {
 
     private String position;
 
+    public Employee () {
+    }
+
+    public Employee ( String name, String email, String phone, String department, String position ) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.department = department;
+        this.position = position;
+    }
+
     public Long getId () {
         return id;
     }

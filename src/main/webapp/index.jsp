@@ -1,25 +1,63 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="component/error.jsp"  %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="component/header.jsp" />
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>JSP - Hello World</title>
-</head>
-<body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet
-<%--    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); --%>
-<%--    response.setHeader("Pragma", "no-cache"); --%>
-<%--    response.setDateHeader("Expires", 0); --%>
-    <ul>
-        <c:set var="greetings" value="${['Hello', 'Hi', 'Welcome', 'Greetings']}" />
-        <c:forEach var="greeting" items="${greetings}">
-            <li>${greeting}!</li>
-        </c:forEach>
-    </ul>
-</a>
+<%@ page import="java.util.List" %>
+<%@ page import="ma.yc.entity.Employee" %>
+
+
+<div class="container">
+    <h2>Welcome To Employees List</h2>
+
+    <a href="${pageContext.request.contextPath}/create" class="addem" >Add New</a>
+    <table >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Position</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+            List<Employee> employeeList = (List<Employee>) request.getAttribute("employeeList");
+            if (employeeList != null && !employeeList.isEmpty()) {
+                for (Employee emp : employeeList) {
+        %>
+        <tr>
+            <td><%= emp.getId() %></td>
+            <td><%= emp.getName() %></td>
+            <td><%= emp.getEmail() %></td>
+            <td><%= emp.getPhone() %></td>
+            <td><%= emp.getDepartment() %></td>
+            <td><%= emp.getPosition() %></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/edit?id=<%= emp.getId() %>" style="color: blue; text-decoration: none;">Edit</a>
+            </td>
+
+            <td>
+                <a href="employee/delete?id=<%= emp.getId() %>" style="color: red; text-decoration: none;" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+            </td>
+        </tr>
+        <%
+            }
+        } else {
+        %>
+        <tr>
+            <td colspan="6">No employees found.</td>
+        </tr>
+        <%
+            }
+        %>
+        </tbody>
+    </table>
+
+</div>
+
+
+<jsp:include page="component/footer.jsp"/>
 </body>
 </html>
