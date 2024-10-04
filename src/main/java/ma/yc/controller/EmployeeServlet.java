@@ -24,7 +24,7 @@ public class EmployeeServlet extends HttpServlet {
     private static final String ACTION_UPDATE = "/update";
     private static final String ACTION_DELETE = "/delete";
     private static final String ACTION_SEARCH = "/search";
-    private static final String ACTION_FILTERBYDEPARTEMENT = "/filterByDepartment";
+    private static final String ACTION_FILTER = "/filter";
 
     private EmployeeService service;
     private ObjectMapper objectMapper;
@@ -72,7 +72,7 @@ public class EmployeeServlet extends HttpServlet {
             case ACTION_SEARCH:
                 searchEmployee(req, res);
                 break;
-            case ACTION_FILTERBYDEPARTEMENT:
+            case ACTION_FILTER:
                 filterByDepartment(req, res);
                 break;
             default:

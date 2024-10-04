@@ -44,7 +44,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Em</servlet-name>
-        <url-pattern>/filterByDepartment</url-pattern>
+        <url-pattern>/filter</url-pattern>
     </servlet-mapping>
 
 
