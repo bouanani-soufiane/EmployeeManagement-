@@ -25,8 +25,13 @@
 
         <input type="text" id="phone" name="phone" value="<%= employee.getPhone()%>"><br><br>
         <label for="department">Department:</label>
-        <input type="text" id="department" name="department" value="<%= employee.getDepartment()%>"><br><br>
-
+        <select id="department" name="department" required>
+            <option value="" disabled>Select a department</option>
+            <option value="HR" <%= employee.getDepartment().equals("HR") ? "selected" : "" %>>Human Resources</option>
+            <option value="IT" <%= employee.getDepartment().equals("IT") ? "selected" : "" %>>Information Technology</option>
+            <option value="Finance" <%= employee.getDepartment().equals("Finance") ? "selected" : "" %>>Finance</option>
+            <option value="Sales" <%= employee.getDepartment().equals("Sales") ? "selected" : "" %>>Sales</option>
+        </select><br><br
         <label for="position">Position:</label>
         <input type="text" id="position" name="position" value="<%= employee.getPosition()%>"><br><br>
 

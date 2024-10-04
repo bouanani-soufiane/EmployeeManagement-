@@ -17,4 +17,8 @@ public interface EmployeeService {
 
     List<Employee> search ( String value );
 
+    List<Employee> filterByDepartment ( String[] department );
+
+    List<Employee> filterByPosition ( String position );
+
 }

@@ -9,18 +9,22 @@ import ma.yc.entity.Employee;
 import ma.yc.service.EmployeeService;
 import ma.yc.service.EmployeeServiceImpl;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeServlet extends HttpServlet {
 
+    private static final String ACTION_HOME = "/";
     private static final String ACTION_STORE = "/store";
     private static final String ACTION_CREATE = "/create";
     private static final String ACTION_EDIT = "/edit";
     private static final String ACTION_UPDATE = "/update";
     private static final String ACTION_DELETE = "/delete";
-    private static final String ACTION_HOME = "/";
+    private static final String ACTION_SEARCH = "/search";
+    private static final String ACTION_FILTERBYDEPARTEMENT = "/filterByDepartment";
 
     private EmployeeService service;
     private ObjectMapper objectMapper;
@@ -51,9 +55,8 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-
     @Override
-    protected void doPost ( HttpServletRequest req, HttpServletResponse res ) throws IOException {
+    protected void doPost ( HttpServletRequest req, HttpServletResponse res ) throws IOException, ServletException {
         res.setContentType("application/json");
         final String action = req.getServletPath();
 
@@ -66,11 +69,75 @@ public class EmployeeServlet extends HttpServlet {
             case ACTION_DELETE:
                 doDelete(req, res);
                 break;
+            case ACTION_SEARCH:
+                searchEmployee(req, res);
+                break;
+            case ACTION_FILTERBYDEPARTEMENT:
+                filterByDepartment(req, res);
+                break;
             default:
                 writeResponse(res, HttpServletResponse.SC_BAD_REQUEST, "Invalid action: " + action);
                 break;
         }
     }
+    private void filterByDepartment(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        res.setContentType("application/json");
+
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try (BufferedReader reader = req.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+
+        String jsonString = sb.toString();
+        String[] selectedDepartments = objectMapper.readValue(jsonString, String[].class);
+
+        List<Employee> filteredEmployees;
+
+        if (selectedDepartments != null && selectedDepartments.length > 0) {
+            filteredEmployees = service.filterByDepartment(selectedDepartments);
+        } else {
+            filteredEmployees = service.findAll();
+        }
+
+        String jsonResponse = objectMapper.writeValueAsString(filteredEmployees);
+
+        res.getWriter().write(jsonResponse);
+        res.setStatus(HttpServletResponse.SC_OK);
+    }
+
+
+
+    private void searchEmployee(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        res.setContentType("application/json");
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try (BufferedReader reader = req.getReader()) {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        }
+        String jsonString = sb.toString();
+        Map<String, String> jsonMap = objectMapper.readValue(jsonString, Map.class);
+        String search = jsonMap.get("searchTerm");
+
+        if (search == null || search.isEmpty()) {
+            writeResponse(res, HttpServletResponse.SC_BAD_REQUEST, "Search query is missing");
+        } else {
+            List<Employee> employees = service.search(search);
+            if (employees.isEmpty()) {
+                writeResponse(res, HttpServletResponse.SC_NOT_FOUND, "No employees found for search query: " + search);
+            } else {
+                String jsonResponse = objectMapper.writeValueAsString(employees);
+                res.getWriter().write(jsonResponse);
+                res.setStatus(HttpServletResponse.SC_OK);
+            }
+        }
+    }
+
 
     @Override
     protected void doDelete ( HttpServletRequest req, HttpServletResponse resp ) throws IOException {

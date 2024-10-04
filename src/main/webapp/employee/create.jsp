@@ -20,8 +20,15 @@
         <label for="phone">Phone:</label>
 
         <input type="text" id="phone" name="phone" required><br><br>
+
         <label for="department">Department:</label>
-        <input type="text" id="department" name="department" required><br><br>
+        <select id="department" name="department" required>
+            <option value="" disabled>Select a department</option>
+            <option value="HR">Human Resources</option>
+            <option value="IT">Information Technology</option>
+            <option value="Finance">Finance</option>
+            <option value="Sales">Sales</option>
+        </select><br><br>
 
         <label for="position">Position:</label>
         <input type="text" id="position" name="position" required><br><br>

@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         EmployeeService employeeService = new EmployeeServiceImpl();
 
-        List<Employee> employees = employeeService.search("ss");
+        List<Employee> employees = employeeService.filterByDepartment(new String[]{"HR"});
 
         for (Employee employee : employees) {
             System.out.println(employee);

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
@@ -88,6 +89,30 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 "OR e.department LIKE :searchTerm OR e.position LIKE :searchTerm";
         Query<Employee> query = session.createQuery(hql, Employee.class);
         query.setParameter("searchTerm", "%" + value + "%");
+
+        return query.getResultList();
+    }
+    public List<Employee> filterByDepartment(String[] departments) {
+        if (departments == null || departments.length == 0) {
+            return findAll();
+        }
+
+        String hql = "FROM Employee e WHERE e.department IN (:departments)";
+        Query<Employee> query = session.createQuery(hql, Employee.class);
+        query.setParameterList("departments", Arrays.asList(departments));
+
+        return query.getResultList();
+    }
+
+
+    public List<Employee> filterByPosition(String position) {
+        if (position == null || position.isEmpty()) {
+            return findAll();
+        }
+
+        String hql = "FROM Employee e WHERE e.position = :position";
+        Query<Employee> query = session.createQuery(hql, Employee.class);
+        query.setParameter("position", position);
 
         return query.getResultList();
     }
