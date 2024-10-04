@@ -13,7 +13,10 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <mapping resource="Employee.hbm.xml"/>
 
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+        <mapping resource="Employee.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
